@@ -1,5 +1,5 @@
 {
-  "name": "@orbitdb/set",
+  "name": "@orbitdb/set-db",
   "version": "1.0.0",
   "description": "Set database type for orbit-db.",
   "author": "Julien Jean Malard-Adam",

@@ -1,4 +1,4 @@
-# orbit-db-set
+# @orbitdb/set-db
 Set database type for orbit-db.
 
 [![orbit-db-set tests](https://github.com/reseau-constellation/set/actions/workflows/run-test.yml/badge.svg?branch=main)](https://github.com/reseau-constellation/set/actions/workflows/run-test.yml)
@@ -6,7 +6,7 @@ Set database type for orbit-db.
 
 ## Installation
 ```
-$ pnpm add @orbitdb/set
+$ pnpm add @orbitdb/set-db
 ```
 ## Introduction
 As `Set` database is like a [`Feed`](https://github.com/reseau-constellation/set), but each value can only be present once. Works for primitive types as well as more complex objects.
@@ -16,7 +16,7 @@ As `Set` database is like a [`Feed`](https://github.com/reseau-constellation/set
 A simple example with `Set`:
 ```ts
 import { createOrbit } from "@orbitdb/core";
-import { registerSet } from "@orbitdb/set";
+import { registerSet } from "@orbitdb/set-db";
 
 // Register set database type. IMPORTANT - must call before creating orbit instance !
 registerSet();
@@ -37,7 +37,7 @@ await db.all()  // Yay !! Still [1, 2]
 As more complex example with object types:
 ```ts
 import { createOrbit } from "@orbitdb/core";
-import { registerSet } from "@orbitdb/set";
+import { registerSet } from "@orbitdb/set-db";
 
 // Register set database type. IMPORTANT - must call before creating orbit instance !
 registerSet();
