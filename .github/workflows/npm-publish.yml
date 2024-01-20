@@ -15,8 +15,7 @@ jobs:
         with:
           node-version: 'lts/*'
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm test
-      - run: npm publish
+      - run: pnpm install
+      - run: pnpm release
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
