@@ -7,8 +7,8 @@ on:
     branches:
       - main
 jobs:
-  test-node:
-    name: Node.js test
+  test-set-db:
+    name: Set-db tests
     runs-on: ubuntu-latest
     steps:
       - name: Préparation de Node.js
@@ -28,32 +28,7 @@ jobs:
         run: pnpm install --lockfile=false
 
       - name: Vérifier les tests
-        run: pnpm test:node
-
-      - name: Envoyer couverture à Codecov
-        uses: codecov/codecov-action@v3
-  test-browser:
-    name: Browser test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Préparation de Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 16
-
-      - name: Installer pnpm
-        uses: pnpm/action-setup@v2.4.0
-        with:
-          version: latest
-
-      - name: Ouvrir la branche
-        uses: actions/checkout@v4
-
-      - name: Nétoyer les dépendances d'installation
-        run: pnpm install --lockfile=false
-
-      - name: Vérifier les tests
-        run: pnpm test:browser
+        run: pnpm test
 
       - name: Envoyer couverture à Codecov
         uses: codecov/codecov-action@v3
