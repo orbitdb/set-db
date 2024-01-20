@@ -1,12 +1,14 @@
 import { type Helia } from "helia";
 
-import { rimraf } from "rimraf";
-
 import Set, { SetDatabaseType } from "@/set.js";
+import { DBElements } from "@/types.js";
 import { createTestHelia } from "./config.js";
+
 import { Identities, Identity, KeyStore, KeyStoreType } from "@orbitdb/core";
 import { expect } from "aegir/chai";
-import { DBElements } from "@/types.js";
+import { isBrowser } from "wherearewe";
+
+const rimrafImport = import("rimraf");
 
 const keysPath = "./testkeys";
 
@@ -35,10 +37,12 @@ describe("Set Database", () => {
     if (keystore) {
       await keystore.close();
     }
-
-    await rimraf(keysPath);
-    await rimraf("./orbitdb");
-    await rimraf("./ipfsS");
+    if (!isBrowser) {
+      const { rimraf } = await rimrafImport;
+      await rimraf(keysPath);
+      await rimraf("./orbitdb");
+      await rimraf("./ipfsS");
+    }
   });
 
   describe("Creating a Set database", () => {
@@ -190,7 +194,7 @@ describe("Set Database", () => {
     });
 
     it("has an iterator function", async () => {
-      expect(db.iterator).to.be.undefined();
+      expect(db.iterator).to.not.be.undefined();
       expect(typeof db.iterator).to.equal("function");
     });
 

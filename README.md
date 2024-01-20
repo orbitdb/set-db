@@ -6,7 +6,7 @@ Set database type for orbit-db.
 
 ## Installation
 ```
-$ pnpm add @orbitdb/orbit-db-set
+$ pnpm add @orbitdb/set
 ```
 ## Introduction
 As `Set` database is like a [`Feed`](https://github.com/reseau-constellation/set), but each value can only be present once. Works for primitive types as well as more complex objects.
