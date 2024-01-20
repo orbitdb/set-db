@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  tests-et-couverture:
+  tests-and-coverage:
     name: Node.js test
     runs-on: ubuntu-latest
     steps:

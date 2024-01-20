@@ -1,7 +1,7 @@
 # orbit-db-set
 Set database type for orbit-db.
 
-[![orbit-db-set tests](https://github.com/reseau-constellation/set/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/reseau-constellation/set/actions/workflows/tests.yml)
+[![orbit-db-set tests](https://github.com/reseau-constellation/set/actions/workflows/run-test.yml/badge.svg?branch=main)](https://github.com/reseau-constellation/set/actions/workflows/run-test.yml)
 [![codecov](https://codecov.io/gh/reseau-constellation/set/graph/badge.svg?token=7OZK4BJDej)](https://codecov.io/gh/reseau-constellation/set)
 
 ## Installation
