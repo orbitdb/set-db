@@ -1,5 +1,5 @@
 # @orbitdb/set-db
-Set database type for orbit-db.
+Set database type for OrbitDB.
 
 [![orbit-db-set tests](https://github.com/orbitdb/set-db/actions/workflows/run-test.yml/badge.svg?branch=main)](https://github.com/orbitdb/set-db/actions/workflows/run-test.yml)
 [![codecov](https://codecov.io/gh/orbitdb/set-db/graph/badge.svg?token=7OZK4BJDej)](https://codecov.io/gh/orbitdb/set-db)
@@ -15,15 +15,15 @@ As `Set` database is like a [`Feed`](https://github.com/reseau-constellation/set
 
 A simple example with `Set`:
 ```ts
-import { createOrbit } from "@orbitdb/core";
+import { createOrbitDB } from "@orbitdb/core";
 import { registerSet } from "@orbitdb/set-db";
 
 // Register set database type. IMPORTANT - must call before creating orbit instance !
 registerSet();
 
-const orbit = await createOrbit({ ipfs })
+const orbitdb = await createOrbitDB({ ipfs })
 
-const db = await orbit.open({ type: "set" });
+const db = await orbitdb.open({ type: "set" });
 
 await db.add(1);
 await db.add(2);
@@ -36,15 +36,15 @@ await db.all()  // Yay !! Still [1, 2]
 
 As more complex example with object types:
 ```ts
-import { createOrbit } from "@orbitdb/core";
+import { createOrbitDB } from "@orbitdb/core";
 import { registerSet } from "@orbitdb/set-db";
 
 // Register set database type. IMPORTANT - must call before creating orbit instance !
 registerSet();
 
-const orbit = await createOrbit({ ipfs })
+const orbit = await createOrbitDB({ ipfs })
 
-const db = await orbit.open({ type: "set" });
+const db = await orbitdb.open({ type: "set" });
 
 await db.add({a: 1});
 await db.add({a: 2});
