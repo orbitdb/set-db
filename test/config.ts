@@ -73,7 +73,6 @@ export const createTestHelia = async ({
 } = {}): Promise<HeliaLibp2p> => {
   const options = isBrowser() ? Libp2pBrowserOptions : Libp2pOptions;
 
-  // @ts-ignore
   const libp2p = await createLibp2p({ ...options });
 
   const blockstore = directory

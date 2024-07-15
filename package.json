@@ -34,6 +34,7 @@
     "@chainsafe/libp2p-noise": "^15.1.0",
     "@chainsafe/libp2p-yamux": "^6.0.2",
     "@constl/orbit-db-types": "^2.0.0",
+    "@eslint/js": "^9.7.0",
     "@helia/block-brokers": "^3.0.2",
     "@libp2p/circuit-relay-v2": "^1.1.2",
     "@libp2p/identify": "^2.1.2",
@@ -54,6 +55,7 @@
     "rimraf": "^6.0.1",
     "ts-patch": "^3.2.1",
     "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0",
     "typescript-transform-paths": "^3.4.7",
     "wherearewe": "^2.0.1"
   },
