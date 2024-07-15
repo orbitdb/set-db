@@ -8,8 +8,6 @@ import { Identities, Identity, KeyStore, KeyStoreType } from "@orbitdb/core";
 import { expect } from "aegir/chai";
 import { isBrowser } from "wherearewe";
 
-const rimrafImport = import("rimraf");
-
 const keysPath = "./testkeys";
 
 describe("Set Database", () => {
@@ -38,7 +36,7 @@ describe("Set Database", () => {
       await keystore.close();
     }
     if (!isBrowser) {
-      const { rimraf } = await rimrafImport;
+      const { rimraf } = await import("rimraf");
       await rimraf(keysPath);
       await rimraf("./orbitdb");
       await rimraf("./ipfsS");
