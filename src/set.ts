@@ -4,7 +4,7 @@ import {
   type Storage,
   type AccessController,
 } from "@orbitdb/core";
-import type { Helia } from "helia";
+import type { HeliaLibp2p } from "helia";
 
 export type SetDatabaseType = Awaited<ReturnType<ReturnType<typeof Set>>>;
 
@@ -27,7 +27,7 @@ const Set =
     syncAutomatically,
     onUpdate,
   }: {
-    ipfs: Helia;
+    ipfs: HeliaLibp2p;
     identity?: Identity;
     address: string;
     name?: string;

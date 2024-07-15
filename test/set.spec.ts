@@ -1,4 +1,4 @@
-import { type Helia } from "helia";
+import { type HeliaLibp2p } from "helia";
 
 import Set, { SetDatabaseType } from "@/set.js";
 import { DBElements } from "@/types.js";
@@ -13,7 +13,7 @@ const rimrafImport = import("rimraf");
 const keysPath = "./testkeys";
 
 describe("Set Database", () => {
-  let ipfs: Helia;
+  let ipfs: HeliaLibp2p;
   let identities;
   let keystore: KeyStoreType;
   let testIdentity1: Identity;
