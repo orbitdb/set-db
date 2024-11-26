@@ -3,6 +3,8 @@ import {
   type Identity,
   type Storage,
   type AccessController,
+  type MetaData,
+  type DagCborEncodable,
 } from "@orbitdb/core";
 import type { HeliaLibp2p } from "helia";
 
@@ -33,7 +35,7 @@ const Set =
     name?: string;
     access?: AccessController;
     directory?: string;
-    meta?: object;
+    meta?: MetaData;
     headsStorage?: Storage;
     entryStorage?: Storage;
     indexStorage?: Storage;
@@ -59,11 +61,11 @@ const Set =
 
     const { addOperation, log } = database;
 
-    const add = async (value: unknown): Promise<string> => {
+    const add = async (value: DagCborEncodable): Promise<string> => {
       return addOperation({ op: "ADD", key: null, value });
     };
 
-    const del = async (value: unknown): Promise<string> => {
+    const del = async (value: DagCborEncodable): Promise<string> => {
       return addOperation({ op: "DEL", key: null, value });
     };
 
