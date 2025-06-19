@@ -5,8 +5,12 @@ import {
   type AccessController,
   type MetaData,
   type DagCborEncodable,
+  Log,
+  LogEntry,
 } from "@orbitdb/core";
+import type { Libp2p } from "libp2p";
 import type { HeliaLibp2p } from "helia";
+import type { ServiceMap } from "@libp2p/interface"
 
 export type SetDatabaseType = Awaited<ReturnType<ReturnType<typeof Set>>>;
 
@@ -14,7 +18,7 @@ const type = "set" as const;
 
 const Set =
   () =>
-  async ({
+  async <T extends ServiceMap = ServiceMap>({
     ipfs,
     identity,
     address,
@@ -29,7 +33,7 @@ const Set =
     syncAutomatically,
     onUpdate,
   }: {
-    ipfs: HeliaLibp2p;
+    ipfs: HeliaLibp2p<Libp2p<T>>;
     identity?: Identity;
     address: string;
     name?: string;
@@ -41,7 +45,7 @@ const Set =
     indexStorage?: Storage;
     referencesCount?: number;
     syncAutomatically?: boolean;
-    onUpdate?: () => void;
+    onUpdate?: (log: Log, entry: LogEntry) => void;
   }) => {
     const database = await Database({
       ipfs,
@@ -79,7 +83,7 @@ const Set =
       void,
       unknown
     > {
-      const vals: { [val: string]: unknown } = {};
+      const vals: { [val: string]: true } = {};
       let count = 0;
       for await (const entry of log.traverse()) {
         const { op, value } = entry.payload;
