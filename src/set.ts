@@ -10,7 +10,7 @@ import {
 } from "@orbitdb/core";
 import type { Libp2p } from "libp2p";
 import type { HeliaLibp2p } from "helia";
-import type { ServiceMap } from "@libp2p/interface"
+import type { ServiceMap } from "@libp2p/interface";
 
 export type SetDatabaseType = Awaited<ReturnType<ReturnType<typeof Set>>>;
 
