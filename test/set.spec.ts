@@ -39,7 +39,7 @@ describe("Set Database", () => {
       const { rimraf } = await import("rimraf");
       await rimraf(keysPath);
       await rimraf("./orbitdb");
-      await rimraf("./ipfsS");
+      await rimraf("./ipfs");
     }
   });
 

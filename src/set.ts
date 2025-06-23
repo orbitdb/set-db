@@ -63,14 +63,12 @@ const Set =
       onUpdate,
     });
 
-    const { addOperation, log } = database;
-
     const add = async (value: DagCborEncodable): Promise<string> => {
-      return addOperation({ op: "ADD", key: null, value });
+      return constructedDb.addOperation({ op: "ADD", key: null, value });
     };
 
     const del = async (value: DagCborEncodable): Promise<string> => {
-      return addOperation({ op: "DEL", key: null, value });
+      return constructedDb.addOperation({ op: "DEL", key: null, value });
     };
 
     const iterator = async function* ({
@@ -85,7 +83,7 @@ const Set =
     > {
       const vals: { [val: string]: true } = {};
       let count = 0;
-      for await (const entry of log.traverse()) {
+      for await (const entry of constructedDb.log.traverse()) {
         const { op, value } = entry.payload;
         const key = JSON.stringify(value);
 
@@ -116,14 +114,16 @@ const Set =
       return values;
     };
 
-    return {
+    const constructedDb = {
       ...database,
       type,
       add,
       del,
       iterator,
       all,
-    };
+    }
+
+    return constructedDb;
   };
 
 Set.type = type;
