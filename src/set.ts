@@ -121,7 +121,7 @@ const Set =
       del,
       iterator,
       all,
-    }
+    };
 
     return constructedDb;
   };
