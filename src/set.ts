@@ -64,13 +64,8 @@ const Set =
       onUpdate,
     });
 
-    const {
-      add,
-      del,
-      iterator,
-      all
-    } = await SetApi({ database });
-    
+    const { add, del, iterator, all } = await SetApi({ database });
+
     return {
       ...database,
       type,
@@ -83,7 +78,7 @@ const Set =
 
 Set.type = type;
 
-export const SetApi = async ({database}: {database: BaseDatabase}) => {
+export const SetApi = async ({ database }: { database: BaseDatabase }) => {
   const add = async (value: DagCborEncodable): Promise<string> => {
     return database.addOperation({ op: "ADD", key: null, value });
   };
@@ -135,8 +130,11 @@ export const SetApi = async ({database}: {database: BaseDatabase}) => {
     return values;
   };
   return {
-    add, del, iterator, all,
-  }
-}
+    add,
+    del,
+    iterator,
+    all,
+  };
+};
 
 export default Set;
