@@ -1,4 +1,4 @@
-export { default as Set, SetDatabaseType } from "@/set.js";
+export { default as Set, SetApi, SetDatabaseType } from "@/set.js";
 
 export { registerSet } from "@/utils.js";
 

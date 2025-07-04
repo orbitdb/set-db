@@ -7,6 +7,7 @@ import {
   type DagCborEncodable,
   Log,
   LogEntry,
+  type BaseDatabase,
 } from "@orbitdb/core";
 import type { Libp2p } from "libp2p";
 import type { HeliaLibp2p } from "helia";
@@ -63,58 +64,14 @@ const Set =
       onUpdate,
     });
 
-    const add = async (value: DagCborEncodable): Promise<string> => {
-      return constructedDb.addOperation({ op: "ADD", key: null, value });
-    };
-
-    const del = async (value: DagCborEncodable): Promise<string> => {
-      return constructedDb.addOperation({ op: "DEL", key: null, value });
-    };
-
-    const iterator = async function* ({
-      amount,
-    }: { amount?: number } = {}): AsyncGenerator<
-      {
-        value: unknown;
-        hash: string;
-      },
-      void,
-      unknown
-    > {
-      const vals: { [val: string]: true } = {};
-      let count = 0;
-      for await (const entry of constructedDb.log.traverse()) {
-        const { op, value } = entry.payload;
-        const key = JSON.stringify(value);
-
-        if (op === "ADD" && !vals[key]) {
-          vals[key] = true;
-          count++;
-          const hash = entry.hash;
-          yield { value, hash };
-        } else if (op === "DEL" && !vals[key]) {
-          vals[key] = true;
-        }
-        if (amount !== undefined && count >= amount) {
-          break;
-        }
-      }
-    };
-
-    const all = async (): Promise<
-      {
-        value: unknown;
-        hash: string;
-      }[]
-    > => {
-      const values = [];
-      for await (const entry of iterator()) {
-        values.unshift(entry);
-      }
-      return values;
-    };
-
-    const constructedDb = {
+    const {
+      add,
+      del,
+      iterator,
+      all
+    } = await SetApi({ database });
+    
+    return {
       ...database,
       type,
       add,
@@ -122,10 +79,64 @@ const Set =
       iterator,
       all,
     };
-
-    return constructedDb;
   };
 
 Set.type = type;
+
+export const SetApi = async ({database}: {database: BaseDatabase}) => {
+  const add = async (value: DagCborEncodable): Promise<string> => {
+    return database.addOperation({ op: "ADD", key: null, value });
+  };
+
+  const del = async (value: DagCborEncodable): Promise<string> => {
+    return database.addOperation({ op: "DEL", key: null, value });
+  };
+
+  const iterator = async function* ({
+    amount,
+  }: { amount?: number } = {}): AsyncGenerator<
+    {
+      value: unknown;
+      hash: string;
+    },
+    void,
+    unknown
+  > {
+    const vals: { [val: string]: true } = {};
+    let count = 0;
+    for await (const entry of database.log.traverse()) {
+      const { op, value } = entry.payload;
+      const key = JSON.stringify(value);
+
+      if (op === "ADD" && !vals[key]) {
+        vals[key] = true;
+        count++;
+        const hash = entry.hash;
+        yield { value, hash };
+      } else if (op === "DEL" && !vals[key]) {
+        vals[key] = true;
+      }
+      if (amount !== undefined && count >= amount) {
+        break;
+      }
+    }
+  };
+
+  const all = async (): Promise<
+    {
+      value: unknown;
+      hash: string;
+    }[]
+  > => {
+    const values = [];
+    for await (const entry of iterator()) {
+      values.unshift(entry);
+    }
+    return values;
+  };
+  return {
+    add, del, iterator, all,
+  }
+}
 
 export default Set;
