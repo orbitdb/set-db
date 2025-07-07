@@ -12,8 +12,8 @@ const keysPath = "./testkeys";
 
 const expectSetsEqual = <T>(set: Set<T>, ref: Set<T>) => {
   expect(set).to.have.all.keys(Array.from(ref.keys()));
-  expect(Array.from(ref.keys()).filter(k => !set.has(k))).to.be.empty();
-}
+  expect(Array.from(ref.keys()).filter((k) => !set.has(k))).to.be.empty();
+};
 
 describe("Set Database", () => {
   let ipfs: HeliaLibp2p;

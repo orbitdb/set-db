@@ -123,7 +123,7 @@ export const SetApi = ({ database }: { database: InternalDatabase }) => {
     for await (const entry of iterator()) {
       values.unshift(entry);
     }
-    return new Set(values.map(v=>v.value));
+    return new Set(values.map((v) => v.value));
   };
 
   return {
