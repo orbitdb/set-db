@@ -1,13 +1,13 @@
-import {
-  Database,
-  type Identity,
-  type Storage,
-  type AccessController,
-  type MetaData,
-  type DagCborEncodable,
+import { Database } from "@orbitdb/core";
+import type {
+  Identity,
+  Storage,
+  AccessController,
+  MetaData,
+  DagCborEncodable,
   Log,
   LogEntry,
-  type BaseDatabase,
+  InternalDatabase,
 } from "@orbitdb/core";
 import type { Libp2p } from "libp2p";
 import type { HeliaLibp2p } from "helia";
@@ -78,7 +78,7 @@ const Set =
 
 Set.type = type;
 
-export const SetApi = ({ database }: { database: BaseDatabase }) => {
+export const SetApi = ({ database }: { database: InternalDatabase }) => {
   const add = async (value: DagCborEncodable): Promise<string> => {
     return database.addOperation({ op: "ADD", key: null, value });
   };
