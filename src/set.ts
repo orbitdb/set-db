@@ -13,11 +13,11 @@ import type { Libp2p } from "libp2p";
 import type { HeliaLibp2p } from "helia";
 import type { ServiceMap } from "@libp2p/interface";
 
-export type SetDatabaseType = Awaited<ReturnType<ReturnType<typeof Set>>>;
+export type SetDatabaseType = Awaited<ReturnType<ReturnType<typeof SetDb>>>;
 
 const type = "set" as const;
 
-const Set =
+const SetDb =
   () =>
   async <T extends ServiceMap = ServiceMap>({
     ipfs,
@@ -76,10 +76,11 @@ const Set =
     };
   };
 
-Set.type = type;
+SetDb.type = type;
 
 export const SetApi = ({ database }: { database: InternalDatabase }) => {
   const add = async (value: DagCborEncodable): Promise<string> => {
+    // TODO: check if value already exists? (Optimises memory over speed)
     return database.addOperation({ op: "ADD", key: null, value });
   };
 
@@ -117,18 +118,14 @@ export const SetApi = ({ database }: { database: InternalDatabase }) => {
     }
   };
 
-  const all = async (): Promise<
-    {
-      value: unknown;
-      hash: string;
-    }[]
-  > => {
+  const all = async (): Promise<Set<unknown>> => {
     const values = [];
     for await (const entry of iterator()) {
       values.unshift(entry);
     }
-    return values;
+    return new Set(values.map(v=>v.value));
   };
+
   return {
     add,
     del,
@@ -137,4 +134,4 @@ export const SetApi = ({ database }: { database: InternalDatabase }) => {
   };
 };
 
-export default Set;
+export default SetDb;

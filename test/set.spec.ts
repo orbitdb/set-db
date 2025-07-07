@@ -1,6 +1,6 @@
 import { type HeliaLibp2p } from "helia";
 
-import Set, { SetDatabaseType } from "@/set.js";
+import SetDb, { SetDatabaseType } from "@/set.js";
 import { DBElements } from "@/types.js";
 import { createTestHelia } from "./config.js";
 
@@ -9,6 +9,11 @@ import { expect } from "aegir/chai";
 import { isBrowser } from "wherearewe";
 
 const keysPath = "./testkeys";
+
+const expectSetsEqual = <T>(set: Set<T>, ref: Set<T>) => {
+  expect(set).to.have.all.keys(Array.from(ref.keys()));
+  expect(Array.from(ref.keys()).filter(k => !set.has(k))).to.be.empty();
+}
 
 describe("Set Database", () => {
   let ipfs: HeliaLibp2p;
@@ -45,7 +50,7 @@ describe("Set Database", () => {
 
   describe("Creating a Set database", () => {
     beforeEach(async () => {
-      db = await Set()({
+      db = await SetDb()({
         ipfs,
         identity: testIdentity1,
         address: databaseId,
@@ -76,7 +81,7 @@ describe("Set Database", () => {
 
   describe("Set database API", () => {
     beforeEach(async () => {
-      db = await Set()({
+      db = await SetDb()({
         ipfs,
         identity: testIdentity1,
         address: databaseId,
@@ -95,7 +100,7 @@ describe("Set Database", () => {
       expect(hash).to.be.a.not.empty("string");
 
       const actual = await db.all();
-      expect(actual).to.have.deep.members([{ hash, value: "value1" }]);
+      expectSetsEqual(actual, new Set(["value1"]));
     });
 
     it("remove a value", async () => {
@@ -105,36 +110,36 @@ describe("Set Database", () => {
       await db.del(value);
 
       const actual = await db.all();
-      expect(actual).to.be.an.empty("array");
+      expect(actual).to.be.an.empty("set");
     });
     it("remove and then add a value", async () => {
       const value = "value1";
 
       await db.del(value);
-      const hash = await db.add(value);
+      await db.add(value);
 
       const actual = await db.all();
 
-      expect(actual).to.have.deep.members([{ value, hash }]);
+      expectSetsEqual(actual, new Set(["value1"]));
     });
     it("add a value twice", async () => {
       const value = "value1";
 
       await db.add(value);
-      const hash = await db.add(value);
+      await db.add(value);
 
       const actual = await db.all();
-      expect(actual).to.have.deep.members([{ value, hash }]);
+      expectSetsEqual(actual, new Set(["value1"]));
     });
     it("add a value twice and remove one", async () => {
       const value = "value1";
 
-      const hash = await db.add(value);
-      const hash2 = await db.add(value);
-      await db.del(hash);
+      await db.add(value);
+      await db.add(value);
+      await db.del(value);
 
       const actual = await db.all();
-      expect(actual).to.have.deep.members([{ value, hash: hash2 }]);
+      expect(actual).to.be.an.empty("set");
     });
 
     it("returns all values", async () => {
@@ -177,7 +182,7 @@ describe("Set Database", () => {
 
   describe("Iterator", () => {
     before(async () => {
-      db = await Set()({
+      db = await SetDb()({
         ipfs,
         identity: testIdentity1,
         address: databaseId,
