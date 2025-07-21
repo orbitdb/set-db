@@ -134,4 +134,6 @@ export const SetApi = ({ database }: { database: InternalDatabase }) => {
   };
 };
 
+SetApi.type = type;
+
 export default SetDb;
