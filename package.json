@@ -1,6 +1,6 @@
 {
   "name": "@orbitdb/set-db",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Set database type for orbit-db.",
   "author": "Julien Jean Malard-Adam",
   "keywords": [
@@ -40,7 +40,7 @@
     "@libp2p/interface": "^3.2.2",
     "@libp2p/webrtc": "^6.0.19",
     "@libp2p/websockets": "^10.1.10",
-    "@orbitdb/core-types": "^1.2.3",
+    "@orbitdb/core-types": "^1.2.4",
     "@types/mocha": "^10.0.10",
     "@typescript-eslint/eslint-plugin": "^8.59.0",
     "@typescript-eslint/parser": "^8.59.0",

@@ -33,6 +33,7 @@ const SetDb =
     referencesCount,
     syncAutomatically,
     onUpdate,
+    signal,
   }: {
     ipfs: Helia<Libp2p<T>>;
     identity?: Identity;
@@ -47,6 +48,7 @@ const SetDb =
     referencesCount?: number;
     syncAutomatically?: boolean;
     onUpdate?: (log: Log, entry: LogEntry) => void;
+    signal?: AbortSignal
   }) => {
     const database = await Database({
       ipfs,
@@ -62,6 +64,7 @@ const SetDb =
       referencesCount,
       syncAutomatically,
       onUpdate,
+      signal,
     });
 
     const { add, del, iterator, all } = SetApi({ database });
