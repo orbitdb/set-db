@@ -48,7 +48,7 @@ const SetDb =
     referencesCount?: number;
     syncAutomatically?: boolean;
     onUpdate?: (log: Log, entry: LogEntry) => void;
-    signal?: AbortSignal
+    signal?: AbortSignal;
   }) => {
     const database = await Database({
       ipfs,
