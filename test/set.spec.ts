@@ -1,4 +1,4 @@
-import { type HeliaLibp2p } from "helia";
+import { type Helia } from "helia";
 
 import SetDb, { SetDatabaseType } from "@/set.js";
 import { DBElements } from "@/types.js";
@@ -16,7 +16,7 @@ const expectSetsEqual = <T>(set: Set<T>, ref: Set<T>) => {
 };
 
 describe("Set Database", () => {
-  let ipfs: HeliaLibp2p;
+  let ipfs: Helia;
   let identities;
   let keystore: KeyStoreType;
   let testIdentity1: Identity;
