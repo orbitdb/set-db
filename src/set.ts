@@ -12,7 +12,7 @@ import type {
 import type { Libp2p } from "libp2p";
 import type { Helia } from "helia";
 import type { ServiceMap } from "@libp2p/interface";
-import type TypedEmitter from "tiny-typed-emitter"
+import type TypedEmitter from "tiny-typed-emitter";
 
 export type SetDatabaseType = Awaited<ReturnType<ReturnType<typeof SetDb>>>;
 
