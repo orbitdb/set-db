@@ -1,5 +1,5 @@
-export { default as SetDb, SetApi, SetDatabaseType } from "@/set.js";
+export { default as SetDb, SetApi, type SetDatabaseType } from "./set.ts";
 
-export { DBElements } from "@/types.js";
+export type { DBElements } from "./types.ts";
 
-export { version } from "@/version.js";
+export { version } from "./version.ts";

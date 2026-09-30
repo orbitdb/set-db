@@ -1,12 +1,11 @@
-import { type Helia } from "helia";
+import SetDb, { type SetDatabaseType } from "../src/set.ts";
+import type { DBElements } from "../src/index.ts";
+import { createTestHelia } from "./config.ts";
 
-import SetDb, { SetDatabaseType } from "@/set.js";
-import { DBElements } from "@/types.js";
-import { createTestHelia } from "./config.js";
-
-import { Identities, Identity, KeyStore, KeyStoreType } from "@orbitdb/core";
+import { Identities, type Identity, KeyStore, type KeyStoreType } from "@orbitdb/core";
 import { expect } from "aegir/chai";
 import { isBrowser } from "wherearewe";
+import type { HeliaWithLibp2p } from "@helia/libp2p";
 
 const keysPath = "./testkeys";
 
@@ -16,7 +15,7 @@ const expectSetsEqual = <T>(set: Set<T>, ref: Set<T>) => {
 };
 
 describe("Set Database", () => {
-  let ipfs: Helia;
+  let ipfs: HeliaWithLibp2p;
   let identities;
   let keystore: KeyStoreType;
   let testIdentity1: Identity;

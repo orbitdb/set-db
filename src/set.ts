@@ -9,8 +9,7 @@ import type {
   LogEntry,
   InternalDatabase,
 } from "@orbitdb/core";
-import type { Libp2p } from "libp2p";
-import type { Helia } from "helia";
+import type { HeliaWithLibp2p } from "@helia/libp2p";
 import type { ServiceMap } from "@libp2p/interface";
 
 export type SetDatabaseType = Awaited<ReturnType<ReturnType<typeof SetDb>>>;
@@ -35,7 +34,7 @@ const SetDb =
     onUpdate,
     signal,
   }: {
-    ipfs: Helia<Libp2p<T>>;
+    ipfs: HeliaWithLibp2p<T>;
     identity?: Identity;
     address: string;
     name?: string;
